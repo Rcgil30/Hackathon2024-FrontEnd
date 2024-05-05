@@ -14,7 +14,7 @@ function App() {
     setIsPending(true);
     if (input !== "") {
       axios
-        .post("http://localhost:5000/model", { text: input })
+        .post("20.127.230.34:5000/model", { text: input })
         .then((response) => {
           setDisplay([
             ...display,
