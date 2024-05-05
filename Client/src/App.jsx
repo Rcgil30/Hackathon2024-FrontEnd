@@ -2,6 +2,7 @@ import { useState } from "react";
 import Logo from "/Logo.png";
 import "./App.css";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 function App() {
   const [input, setInput] = useState("");
@@ -40,6 +41,11 @@ function App() {
     setInput(e.target.value);
   };
 
+  const handleSpeech = (text) => {
+    const value = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(value);
+  };
+
   return (
     <div className="container">
       <div className="header-container">
@@ -50,13 +56,20 @@ function App() {
           </span>
         </header>
       </div>
-
+      {}
       <div className="chat-container">
         {display.map((message, index) => {
           return (
             <div key={index}>
-              <div className="user">{message.user}</div>
-              <div className="message-text">{message.message}</div>
+              <div className="user">
+                {message.user}
+                <button onClick={() => handleSpeech(message.message)}>
+                  Texto a Voz
+                </button>
+              </div>
+              <div className="message-text">
+                <ReactMarkdown>{message.message}</ReactMarkdown>
+              </div>
             </div>
           );
         })}
